@@ -7,12 +7,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.JLabel;
 import java.awt.GridBagLayout;
 
-public class Vista extends JFrame {
+public class Vista extends JFrame implements Observer {
 
 	private JPanel contentPane;
+	private static Vista mVista;
 
 	/**
 	 * Launch the application.
@@ -58,6 +62,19 @@ public class Vista extends JFrame {
 		
 		JLabel lblMenu = new JLabel("Menu");
 		pnlBajo.add(lblMenu);
+	}
+	
+	public static Vista getVista() {
+		if(mVista==null) {
+			mVista=new Vista();
+		}
+		return (mVista);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,6 +1,8 @@
 package HundirLaFlota;
 
-public class Modelo {
+import java.util.Observable;
+
+public class Modelo extends Observable{
 
 	private static Modelo mModelo;
 	private Accion accionCargada;
