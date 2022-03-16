@@ -11,8 +11,22 @@ public class Tile {
 		throw new UnsupportedOperationException();
 	}
 
-	public void revelar() {
+	private void revelar() {
 		// TODO - implement Tile.revelar
+		throw new UnsupportedOperationException();
+	}
+
+	public void actVista() {
+		// TODO - implement Tile.actVista
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param a
+	 */
+	public void ejecutar(Accion a) {
+		// TODO - implement Tile.ejecutar
 		throw new UnsupportedOperationException();
 	}
 

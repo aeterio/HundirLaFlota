@@ -1,13 +1,11 @@
 package HundirLaFlota;
 
-import java.util.ArrayList;
-
 public class Barco {
 
-	private ArrayList<TBarco> lTBarcos;
-	private boolean undido;
+	private Collection<TBarco> lTBarcos;
+	private boolean hundido;
 	private boolean protegido;
-	
+
 	public Barco() {
 		// TODO - implement Barco.Barco
 		throw new UnsupportedOperationException();
@@ -15,6 +13,11 @@ public class Barco {
 
 	public void estaProtegido() {
 		// TODO - implement Barco.estaProtegido
+		throw new UnsupportedOperationException();
+	}
+
+	public void anadirTBarco() {
+		// TODO - implement Barco.anadirTBarco
 		throw new UnsupportedOperationException();
 	}
 

@@ -1,29 +1,20 @@
 package HundirLaFlota;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-public class Controlador implements ActionListener{
+public class Controlador {
 
 	public Controlador() {
 		// TODO - implement Controlador.Controlador
 		throw new UnsupportedOperationException();
 	}
 
-	private void pasarAcciion(int x,int y) {
+	public void pasarAcciion() {
 		// TODO - implement Controlador.pasarAcciion
 		throw new UnsupportedOperationException();
 	}
 
-	private void pasarCoord(int x,int y) {
+	public void pasarCoord() {
 		// TODO - implement Controlador.pasarCoord
 		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
