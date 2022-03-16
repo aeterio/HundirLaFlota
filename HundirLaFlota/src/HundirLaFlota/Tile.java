@@ -6,7 +6,13 @@ public class Tile {
 	private int coordY;
 	private boolean oculto;
 
-	public Tile() {
+	/**
+	 * 
+	 * @param pCoordX
+	 * @param pCoordY
+	 * @param pOc
+	 */
+	public Tile(int pCoordX, int pCoordY, boolean pOc) {
 		// TODO - implement Tile.Tile
 		throw new UnsupportedOperationException();
 	}

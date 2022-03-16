@@ -4,20 +4,20 @@ import java.util.*;
 
 public class Panel {
 
-	private Collection<Collection<Tile>> lTiles;
+	private Tile[][] lTiles;
 
 	public Panel() {
 		// TODO - implement Panel.Panel
 		throw new UnsupportedOperationException();
 	}
 
-	private tile buscarTileIndice() {
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	private tile buscarTileIndice(int x, int y) {
 		// TODO - implement Panel.buscarTileIndice
-		throw new UnsupportedOperationException();
-	}
-
-	public void pasarAccionATile() {
-		// TODO - implement Panel.pasarAccionATile
 		throw new UnsupportedOperationException();
 	}
 

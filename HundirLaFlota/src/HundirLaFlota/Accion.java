@@ -7,7 +7,11 @@ public abstract class Accion {
 		throw new UnsupportedOperationException();
 	}
 
-	public void ejecutarse() {
+	/**
+	 * 
+	 * @param pT
+	 */
+	public void ejecutarse(Tile pT) {
 		// TODO - implement Accion.ejecutarse
 		throw new UnsupportedOperationException();
 	}

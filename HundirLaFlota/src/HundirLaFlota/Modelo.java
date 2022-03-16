@@ -58,16 +58,6 @@ public class Modelo {
 
 	/**
 	 * 
-	 * @param x
-	 * @param y
-	 */
-	private void actuar(int x, int y) {
-		// TODO - implement Modelo.actuar
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
 	 * @param pTam
 	 */
 	public void recibirTamaño(int pTam) {

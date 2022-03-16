@@ -45,4 +45,13 @@ public class Jugador {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * 
+	 * @param pB
+	 */
+	public void anadirBarco(Barco pB) {
+		// TODO - implement Jugador.anadirBarco
+		throw new UnsupportedOperationException();
+	}
+
 }

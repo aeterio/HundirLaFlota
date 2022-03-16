@@ -6,7 +6,11 @@ public class Barco {
 	private boolean hundido;
 	private boolean protegido;
 
-	public Barco() {
+	/**
+	 * 
+	 * @param pTam
+	 */
+	public Barco(int pTam) {
 		// TODO - implement Barco.Barco
 		throw new UnsupportedOperationException();
 	}
@@ -18,6 +22,11 @@ public class Barco {
 
 	public void anadirTBarco() {
 		// TODO - implement Barco.anadirTBarco
+		throw new UnsupportedOperationException();
+	}
+
+	public void estaHundido() {
+		// TODO - implement Barco.estaHundido
 		throw new UnsupportedOperationException();
 	}
 
