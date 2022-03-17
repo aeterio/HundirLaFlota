@@ -4,7 +4,6 @@ public abstract class Accion {
 
 	public Accion() {
 		// TODO - implement Accion.Accion
-		throw new UnsupportedOperationException();
 	}
 
 	/**

@@ -14,12 +14,16 @@ public class Tile {
 	 */
 	public Tile(int pCoordX, int pCoordY, boolean pOc) {
 		// TODO - implement Tile.Tile
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		this.coordX=pCoordX;
+		this.coordY=pCoordY;
+		this.oculto=pOc;
 	}
 
-	private void revelar() {
+	public void revelar() {
 		// TODO - implement Tile.revelar
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		this.oculto = false;
 	}
 
 	public void actVista() {
@@ -33,7 +37,8 @@ public class Tile {
 	 */
 	public void ejecutar(Accion a) {
 		// TODO - implement Tile.ejecutar
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		a.ejecutarse(this);
 	}
 
 }

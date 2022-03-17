@@ -21,7 +21,12 @@ public class Jugador {
 	 */
 	public void consumirRecuro(Accion a) {
 		// TODO - implement Jugador.consumirRecuro
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		if (a instanceof Bomba) {
+			cantBomb--;
+		}else if (a instanceof Misil) {
+			cantMisil--;
+		}
 	}
 
 	/**
@@ -32,7 +37,8 @@ public class Jugador {
 	 */
 	public void actuarSobre(Accion a, int x, int y) {
 		// TODO - implement Jugador.actuarSobre
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		this.panel.accionarTile(x, y, a);
 	}
 
 	/**

@@ -2,7 +2,7 @@ package HundirLaFlota;
 
 public class Agua extends Tile {
 
-	private boolean ocupado;
+	private boolean ocupado; //indica si ya hay un barco adyacente a esta agua
 
 	public Agua() {
 		// TODO - implement Agua.Agua

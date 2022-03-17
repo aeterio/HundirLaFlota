@@ -16,7 +16,7 @@ public class Panel {
 	 * @param x
 	 * @param y
 	 */
-	private tile buscarTileIndice(int x, int y) {
+	private Tile buscarTileIndice(int x, int y) {
 		// TODO - implement Panel.buscarTileIndice
 		throw new UnsupportedOperationException();
 	}
