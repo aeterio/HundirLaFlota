@@ -1,5 +1,7 @@
 package HundirLaFlota;
 
+import java.util.Collection;
+
 public class Barco {
 
 	private Collection<TBarco> lTBarcos;
