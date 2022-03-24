@@ -22,7 +22,7 @@ public class Barco {
 		throw new UnsupportedOperationException();
 	}
 
-	public void anadirTBarco() {
+	public void anadirTBarco(TBarco tB) {
 		// TODO - implement Barco.anadirTBarco
 		throw new UnsupportedOperationException();
 	}

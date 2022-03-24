@@ -1,29 +1,27 @@
 package HundirLaFlota;
 
-public class Tile {
+import java.util.Observable;
 
-	private int coordX;
-	private int coordY;
+import javax.swing.JPanel;
+
+public class Tile extends Observable{
+
+	protected int coordX;
+	protected int coordY;
 	private boolean oculto;
 
-	/**
-	 * 
-	 * @param pCoordX
-	 * @param pCoordY
-	 * @param pOc
-	 */
 	public Tile(int pCoordX, int pCoordY, boolean pOc) {
 		// TODO - implement Tile.Tile
-		//throw new UnsupportedOperationException();
 		this.coordX=pCoordX;
 		this.coordY=pCoordY;
 		this.oculto=pOc;
+		this.addObserver(Vista.getVista());
 	}
 
 	public void revelar() {
 		// TODO - implement Tile.revelar
-		//throw new UnsupportedOperationException();
 		this.oculto = false;
+		notifyObservers(0);
 	}
 
 	public void actVista() {
@@ -31,14 +29,18 @@ public class Tile {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param a
-	 */
 	public void ejecutar(Accion a) {
 		// TODO - implement Tile.ejecutar
 		//throw new UnsupportedOperationException();
 		a.ejecutarse(this);
+	}
+	
+	public int getCoordX() {
+		return this.coordX;
+	}
+	
+	public int getCoordY() {
+		return this.coordY;
 	}
 
 }

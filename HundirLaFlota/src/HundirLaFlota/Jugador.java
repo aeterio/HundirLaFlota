@@ -1,11 +1,12 @@
 package HundirLaFlota;
 
 import java.util.Collection;
+import java.util.Observable;
 
-public class Jugador {
+public class Jugador extends Observable{
 
 	private double dinero;
-	private Collection<Barco> lBarcos;
+	private Collection<Barco>[] lBarcos;
 	private int cantBomb;
 	private int cantMisil;
 	private Panel panel;
@@ -50,16 +51,57 @@ public class Jugador {
 	 */
 	public void ponerBarco(int x, int y, int pTam, int pCodDir) {
 		// TODO - implement Jugador.ponerBarco
-		throw new UnsupportedOperationException();
+		if (panel.sePuedePoner(x,y,pTam,pCodDir)) {
+			int i = 0;
+			int z;
+			Barco b = new Barco(pTam);
+			this.anadirBarco(b, pTam);
+			notifyObservers(pTam);
+			if(pCodDir == 0){
+				while (i < pTam){
+					TBarco tb =  new TBarco();
+					b.anadirTBarco(tb);
+					panel.ponerTileEnPos(x,y-i,tb);
+					i++;
+				}
+			}
+			else if(pCodDir == 1){
+				while (i < pTam){
+					TBarco tb =  new TBarco();
+					b.anadirTBarco(tb);
+					panel.ponerTileEnPos(x+i,y,tb);
+					i++;
+				}
+			}
+			else if(pCodDir == 2){
+				while (i < pTam){
+					TBarco tb =  new TBarco();
+					b.anadirTBarco(tb);
+					panel.ponerTileEnPos(x,y+i,tb);
+					i++;
+				}
+			}
+			else{
+				while (i < pTam){
+					TBarco tb =  new TBarco();
+					b.anadirTBarco(tb);
+					panel.ponerTileEnPos(x-i,y,tb);
+					i++;
+				}
+			}
+		}
+		else{
+			//hacer una excepcion oh algo para comunicar al jugador, oh hacer el checkeo de manera previa
+		}
 	}
 
 	/**
 	 * 
 	 * @param pB
 	 */
-	public void anadirBarco(Barco pB) {
+	public void anadirBarco(Barco pB,int pTam) {
 		// TODO - implement Jugador.anadirBarco
-		throw new UnsupportedOperationException();
+		lBarcos[pTam].add(pB);
 	}
 
 }

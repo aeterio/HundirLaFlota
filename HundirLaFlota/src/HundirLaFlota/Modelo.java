@@ -1,11 +1,13 @@
 package HundirLaFlota;
 
-public class Modelo {
+import java.util.Observable;
+
+public class Modelo extends Observable {
 
 	private static Modelo mModelo;
 	private Accion accionCargada;
 	private boolean turnoUsuario;  //Indica si quien realiza la acción es el usuario
-	private Usuario usuario;
+	private Jugador usuario;
 	private IA ia;
 	private int bapCoordX;
 	private int bapCoordY;
@@ -14,12 +16,15 @@ public class Modelo {
 
 	private Modelo() {
 		// TODO - implement Modelo.Modelo
-		throw new UnsupportedOperationException();
+		this.addObserver(Vista.getVista());
 	}
 
 	public static Modelo getModelo() {
 		// TODO - implement Modelo.getModelo
-		throw new UnsupportedOperationException();
+		if (mModelo == null) {
+			mModelo = new Modelo();
+		}
+		return mModelo;
 	}
 
 	public void cargarAccion(int pCodAcc) {
@@ -32,11 +37,6 @@ public class Modelo {
 		}
 	}
 
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 */
 	private void actuarSobreTile(int x, int y) {
 		// Dependiendo del turno uno realiza y el otro consume
 		Jugador j1, j2;
@@ -51,11 +51,6 @@ public class Modelo {
 		j2.actuarSobre(this.accionCargada, x, y);
 	}
 
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 */
 	public void recibirPos(int x, int y) {
 		// Si estamos en estado de colocar barcos guardamos las coordenadas, sino mandamos la acción 
 		// a cada jugador para que la traten segun les toque.
@@ -66,24 +61,34 @@ public class Modelo {
 		}else if (estado == 1) {
 			this.actuarSobreTile(x, y);
 		}
+		System.out.println(x+" "+y);
 	}
 
-	/**
-	 * 
-	 * @param pCodDIr
-	 */
 	public void recibirDir(int pCodDIr) {
-		// TODO - implement Modelo.recibirDir
-		throw new UnsupportedOperationException();
+		//En comparacion con el resto de los Recibires este no se alamacena, sino que pasa directamente al jugador
+		// 0 = Norte
+		// 1 = Este
+		// 2 = Sur
+		// 3 = Oeste
+		if (estado == 0){
+			this.usuario.ponerBarco(this.bapCoordX,this.bapCoordY,this.bapTamaño, pCodDIr);
+		}
 	}
 
-	/**
-	 * 
-	 * @param pTam
-	 */
 	public void recibirTamaño(int pTam) {
-		// TODO - implement Modelo.recibirTamaño
-		throw new UnsupportedOperationException();
+		//Almacenamos el Tamaño, el tipo, de barco para posterior uso en la colocacion
+		if(estado == 0){
+			this.bapTamaño = pTam;
+		}
 	}
 
+	public void cambioTurno() {
+		this.turnoUsuario = !this.turnoUsuario;
+		notifyObservers(this.turnoUsuario);
+	}
+	
+	public void cambioEstado() {
+		this.estado++;
+		notifyObservers(estado);
+	}
 }

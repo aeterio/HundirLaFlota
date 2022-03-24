@@ -13,6 +13,7 @@ public class Misil extends Arma {
 			((TBarco) pT).tocar();
 			((TBarco) pT).tocar();
 		}
+		
 	}
 
 }

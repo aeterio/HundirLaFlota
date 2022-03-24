@@ -16,7 +16,12 @@ public class TBarco extends Tile {
 
 	public void tocar() {
 		// TODO - implement TBarco.tocar
-		throw new UnsupportedOperationException();
+		if (this.barco.estaProtegido()) {
+			this.barco.setProtegido(false);
+		}else {
+			this.tocado = true;
+			notifyObservers(1);
+		}
 	}
 
 }
