@@ -47,6 +47,7 @@ public class Vista extends JFrame implements Observer {
 	 */
 	
 	private boolean turnoUsr;
+	private int estado;
 	
 	private JPanel menuAcciones;
 	private JPanel menuPonerBarcos;
@@ -55,6 +56,8 @@ public class Vista extends JFrame implements Observer {
 	private JLabel lblBarcosia;
 	
 	public Vista() {
+		this.estado = 0;
+		
 		this.gDer = new JLabel[10][10];
 		this.gIzq = new JLabel[10][10];
 		
@@ -116,10 +119,12 @@ public class Vista extends JFrame implements Observer {
 		
 		JButton btnBomba = new JButton("Bomba");
 		menuAcciones.add(btnBomba);
-		
+		btnBomba.addActionListener(Controlador.getControlador());
+
 		JButton btnMisil = new JButton("Misil");
 		menuAcciones.add(btnMisil);
-		
+		btnMisil.addActionListener(Controlador.getControlador());
+
 		menuPonerBarcos = new JPanel();
 		pnlBajo.add(menuPonerBarcos);
 		menuPonerBarcos.setLayout(new GridLayout(2, 1, 0, 0));
@@ -195,7 +200,7 @@ public class Vista extends JFrame implements Observer {
 				if(o instanceof Agua)	this.cambiarColorCasilla(aux, Color.blue);
 				else if(o instanceof TBarco)	this.cambiarColorCasilla(aux, Color.black);
 			}else if ((Integer)arg==1) {
-				aux.setBackground(Color.red);
+				this.cambiarColorCasilla(aux, Color.red);
 			}			
 		}else if (o instanceof Jugador) {
 			String aux;
@@ -220,6 +225,7 @@ public class Vista extends JFrame implements Observer {
 			if(arg instanceof Integer) {
 				this.menuPonerBarcos.setVisible(false);
 				this.menuAcciones.setVisible(true);
+				this.estado=(int) arg;
 			}else {
 				this.turnoUsr = (boolean) arg;
 			}
@@ -228,8 +234,13 @@ public class Vista extends JFrame implements Observer {
 	
 	private JLabel buscarPanel(int x, int y) {
 		JLabel[][] matriz;
-		if(this.turnoUsr) matriz = this.gIzq;
-		else matriz = this.gDer;
+		if(this.estado==0) {
+			if(this.turnoUsr) matriz = this.gIzq;
+			else matriz = this.gDer;
+		}else /*if (estado==1)*/ {
+			if(this.turnoUsr) matriz = this.gDer;
+			else matriz = this.gIzq;
+		}
 		return matriz[x][y];
 	}
 	

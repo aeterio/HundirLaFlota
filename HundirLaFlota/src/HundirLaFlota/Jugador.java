@@ -2,15 +2,16 @@ package HundirLaFlota;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Observable;
 
 public class Jugador extends Observable{
 
 	private double dinero;
-	private Collection<Barco>[] lBarcos;
+	protected Collection<Barco>[] lBarcos;
 	private int cantBomb;
 	private int cantMisil;
-	private Panel panel;
+	protected Panel panel;
 
 	public Jugador() {
 		this.dinero = 50;
@@ -59,7 +60,7 @@ public class Jugador extends Observable{
 	 */
 	public void ponerBarco(int x, int y, int pTam, int pCodDir) {
 		// TODO - implement Jugador.ponerBarco
-		if (this.lBarcos[pTam].size()<5-pTam && panel.sePuedePoner(x,y,pTam,pCodDir)) {
+		if (this.lBarcos[pTam].size()<5-pTam /*&& panel.sePuedePoner(x,y,pTam,pCodDir)*/) { //!!! cOMENTADO PORQUE NO PERMITE PONER BARCOS CUANDO DEBERIA
 			int i = 0;
 			Barco b = new Barco(pTam);
 			this.anadirBarco(b, pTam);
@@ -97,7 +98,7 @@ public class Jugador extends Observable{
 				}
 			}
 			this.comprobarFinAnadirBarcos();
-			this.rodearBarco(x, y, pTam, pCodDir);
+//			this.rodearBarco(x, y, pTam, pCodDir);  //!!!!COMENTADO PORQUE EL CHQUEO DE AGUA OCUPADA DESCOMENTAR PARA OCUPAR AGUA
 		}
 		
 		else{
@@ -129,6 +130,18 @@ public class Jugador extends Observable{
 		this.panel.rodearBarco(x, y, pTam, pCodDir);
 	}
 	
-	
+	public boolean todosHundidos() {
+		boolean b = true;
+		Barco aux;
+		Iterator<Barco> itr;
+		for(int i=1; i<this.lBarcos.length;i++) {
+			itr = this.lBarcos[i].iterator();
+			while(itr.hasNext()) {
+				aux = itr.next();
+				b = b && aux.estaHundido();
+			}
+		}
+		return b;
+	}
 
 }

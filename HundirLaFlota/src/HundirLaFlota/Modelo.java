@@ -38,9 +38,9 @@ public class Modelo extends Observable {
 
 	public void cargarAccion(int pCodAcc) {
 		// TODO - implement Modelo.cargarAccion
-		//throw new UnsupportedOperationException();
 		if (pCodAcc==0) {
 			this.accionCargada = new Bomba();
+			System.out.println("Accion0");
 		}else if(pCodAcc==1) {
 			this.accionCargada = new Misil();
 		}
@@ -58,6 +58,8 @@ public class Modelo extends Observable {
 		}
 		j1.consumirRecuro(this.accionCargada);
 		j2.actuarSobre(this.accionCargada, x, y);
+		this.cambioTurno();
+		if(j2.todosHundidos())this.pierde(j2);;
 	}
 
 	public void recibirPos(int x, int y) {
@@ -68,7 +70,7 @@ public class Modelo extends Observable {
 			this.bapCoordX=x;
 			this.bapCoordY=y;
 		}else if (estado == 1) {
-			this.actuarSobreTile(x, y);
+			if(this.accionCargada!=null)this.actuarSobreTile(x, y);
 		}
 	}
 
@@ -117,5 +119,12 @@ public class Modelo extends Observable {
 		this.bapCoordX=-1;
 		this.bapCoordY=-1;
 		this.bapTamaño=0;
+	}
+	
+	private void pierde(Jugador j) {
+		String msg;
+		if(j.equals(this.usuario))msg="Gana el ordenador. Pierde el jugador";
+		else msg="Gana el ordenador. Pierde el jugador";
+		System.out.println(msg);
 	}
 }

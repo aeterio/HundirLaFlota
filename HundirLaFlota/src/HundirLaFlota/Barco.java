@@ -2,6 +2,7 @@ package HundirLaFlota;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 public class Barco {
 
@@ -35,6 +36,19 @@ public class Barco {
 	public void setProtegido(boolean b) {
 		// TODO Auto-generated method stub
 		this.protegido = b;
+	}
+	
+	public void tocado() {
+		boolean b = true;
+		TBarco aux;
+		Iterator<TBarco> itr = this.lTBarcos.iterator();
+		while(itr.hasNext()) {
+			aux = itr.next();
+//			System.out.println(aux.getTocado());
+			b = b && aux.getTocado();
+		}
+		this.hundido = b;
+//		System.out.println("*******************"+this.hundido);
 	}
 
 }

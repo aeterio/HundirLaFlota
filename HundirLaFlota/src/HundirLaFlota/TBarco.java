@@ -21,6 +21,7 @@ public class TBarco extends Tile {
 			this.barco.setProtegido(false);
 		}else {
 			this.tocado = true;
+			this.barco.tocado();
 			setChanged();
 			notifyObservers(1);
 		}
