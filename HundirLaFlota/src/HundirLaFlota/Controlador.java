@@ -57,7 +57,8 @@ public class Controlador implements ActionListener, MouseListener {
 		// TODO Auto-generated method stub
 		int x = ((JLabel)e.getSource()).getText().charAt(0) - '0';
 		int y = ((JLabel)e.getSource()).getText().charAt(1) - '0';
-		Modelo.getModelo().recibirPos(x, y);
+		char tab = ((JLabel)e.getSource()).getText().charAt(2);
+		Modelo.getModelo().recibirPos(x, y,tab);
 	}
 
 	@Override

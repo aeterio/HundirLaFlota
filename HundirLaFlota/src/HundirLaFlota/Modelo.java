@@ -62,15 +62,17 @@ public class Modelo extends Observable {
 		if(j2.todosHundidos())this.pierde(j2);;
 	}
 
-	public void recibirPos(int x, int y) {
+	public void recibirPos(int x, int y, char tablero) {
 		// Si estamos en estado de colocar barcos guardamos las coordenadas, sino mandamos la acción 
 		// a cada jugador para que la traten segun les toque.
-		//throw new UnsupportedOperationException();
-		if (estado ==0) {
-			this.bapCoordX=x;
-			this.bapCoordY=y;
-		}else if (estado == 1) {
-			if(this.accionCargada!=null)this.actuarSobreTile(x, y);
+		// Además recibimos en que tablero se 
+		if(this.tableroApropiadoAlTurno(tablero)) {
+			if (estado ==0) {
+				this.bapCoordX=x;
+				this.bapCoordY=y;
+			}else if (estado == 1) {
+				if(this.accionCargada!=null)this.actuarSobreTile(x, y);
+			}
 		}
 	}
 
@@ -126,7 +128,21 @@ public class Modelo extends Observable {
 	private void pierde(Jugador j) {
 		String msg;
 		if(j.equals(this.usuario))msg="Gana el ordenador. Pierde el jugador";
-		else msg="Gana el ordenador. Pierde el jugador";
+		else msg="Gana el jugador. Pierde el ordenador";
 		System.out.println(msg);
+	}
+	
+	private boolean tableroApropiadoAlTurno(char c) {
+		boolean res;
+		if(estado == 0) {
+			if(c == 'I' && this.turnoUsuario) res = true;
+			else if(c == 'D' && !this.turnoUsuario) res = true;
+			else res=false;
+		}else /*if(estado==1)*/{
+			if(c == 'D' && this.turnoUsuario) res = true;
+			else if(c == 'I' && !this.turnoUsuario) res = true;
+			else res=false;
+		}
+		return res;
 	}
 }

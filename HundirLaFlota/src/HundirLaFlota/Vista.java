@@ -83,7 +83,7 @@ public class Vista extends JFrame implements Observer {
 		JLabel aux;
 		for (int i=0;i<10;i++) {
 			for (int j=0;j<10;j++) {
-				aux = new JLabel(j+""+i);
+				aux = new JLabel(j+""+i+"I");
 				aux.setOpaque(true);
 				this.cambiarColorCasilla(aux, Color.DARK_GRAY);
 				aux.addMouseListener(Controlador.getControlador());
@@ -99,7 +99,7 @@ public class Vista extends JFrame implements Observer {
 		
 		for (int i=0;i<10;i++) {
 			for (int j=0;j<10;j++) {
-				aux = new JLabel(j+""+i);
+				aux = new JLabel(j+""+i+"D");
 				aux.setOpaque(true);
 				this.cambiarColorCasilla(aux, Color.DARK_GRAY);
 				aux.addMouseListener(Controlador.getControlador());
