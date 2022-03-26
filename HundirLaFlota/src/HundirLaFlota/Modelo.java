@@ -106,6 +106,8 @@ public class Modelo extends Observable {
 		this.turnoUsuario = !this.turnoUsuario;
 		setChanged();
 		notifyObservers(this.turnoUsuario);
+//		if(estado == 0) this.ia.ponerBarcosInteligente(); //Faltan implementar en IA
+//		else this.ia.realizarAccionInteligente();
 	}
 	
 	public void cambioEstado() {

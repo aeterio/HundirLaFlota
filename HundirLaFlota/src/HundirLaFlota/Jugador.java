@@ -69,7 +69,7 @@ public class Jugador extends Observable{
 				while (i < pTam){
 					TBarco tb =  new TBarco(x,y-i,false);
 					b.anadirTBarco(tb);
-					panel.ponerTileEnPos(x,y-i,tb);
+					this.ponerTBPanel(x,y-i,tb);
 					i++;
 				}
 			}
@@ -77,7 +77,7 @@ public class Jugador extends Observable{
 				while (i < pTam){
 					TBarco tb =  new TBarco(x+i,y,false);
 					b.anadirTBarco(tb);
-					panel.ponerTileEnPos(x+i,y,tb);
+					this.ponerTBPanel(x+i,y,tb);
 					i++;
 				}
 			}
@@ -85,7 +85,7 @@ public class Jugador extends Observable{
 				while (i < pTam){
 					TBarco tb =  new TBarco(x,y+i,false);
 					b.anadirTBarco(tb);
-					panel.ponerTileEnPos(x,y+i,tb);
+					this.ponerTBPanel(x,y+i,tb);
 					i++;
 				}
 			}
@@ -93,7 +93,7 @@ public class Jugador extends Observable{
 				while (i < pTam){
 					TBarco tb =  new TBarco(x-i,y,false);
 					b.anadirTBarco(tb);
-					panel.ponerTileEnPos(x-i,y,tb);
+					this.ponerTBPanel(x-i,y,tb);
 					i++;
 				}
 			}
@@ -142,6 +142,11 @@ public class Jugador extends Observable{
 			}
 		}
 		return b;
+	}
+	
+	protected void ponerTBPanel(int x, int y, TBarco tb) {
+		this.panel.ponerTileEnPos(x, y, tb);
+		this.panel.revelarTileEnPos(x, y);
 	}
 
 }

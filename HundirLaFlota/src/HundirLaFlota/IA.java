@@ -27,5 +27,11 @@ public class IA extends Jugador {
 			Modelo.getModelo().cambioEstado();
 		}
 	}
+	
+	/* 
+	@Override //METODO PARA QUE NO SE MUESTREN LOS BARCOS PUESTOS POR LA IA
+	protected void ponerTBPanel(int x, int y, TBarco tb) {
+		this.panel.ponerTileEnPos(x, y, tb);
+	}*/
 
 }

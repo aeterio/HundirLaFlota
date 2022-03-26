@@ -76,8 +76,12 @@ public class Panel {
 //		t = tB;
 //		t.revelar();
 		this.lTiles[x][y]=tB;
-		tB.revelar();
 	}
+	
+	public void revelarTileEnPos(int x, int y) {
+		this.lTiles[x][y].revelar();
+	}
+	
 	/**
 	 * 
 	 * @param x
