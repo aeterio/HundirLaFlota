@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
+import javax.swing.JSplitPane;
 
 public class Vista extends JFrame implements Observer {
 
@@ -32,7 +33,7 @@ public class Vista extends JFrame implements Observer {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Vista frame = new Vista();
+					Vista frame = Vista.getVista();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -59,7 +60,7 @@ public class Vista extends JFrame implements Observer {
 		
 		/// Creacion general
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 850, 700);
+		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -71,24 +72,38 @@ public class Vista extends JFrame implements Observer {
 		pnlCentro.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JPanel gridIzq = new JPanel();
+		gridIzq.setBorder(new EmptyBorder(10, 10, 10, 10));
 		pnlCentro.add(gridIzq);
 		gridIzq.setLayout(new GridLayout(10, 10, 5, 5));
+		
 		
 		JLabel aux;
 		for (int i=0;i<10;i++) {
 			for (int j=0;j<10;j++) {
-				aux = new JLabel(i+""+j);
+				aux = new JLabel(j+""+i);
 				aux.setOpaque(true);
-				aux.setBackground(Color.DARK_GRAY);
-				aux.setForeground(Color.DARK_GRAY);
+				this.cambiarColorCasilla(aux, Color.DARK_GRAY);
 				aux.addMouseListener(Controlador.getControlador());
 				gridIzq.add(aux);
+				gIzq[j][i] = aux;
 			}
 		}
 		
 		JPanel gridDer = new JPanel();
+		gridDer.setBorder(new EmptyBorder(10, 10, 10, 10));
 		pnlCentro.add(gridDer);
-		gridDer.setLayout(new GridLayout(10, 10, 0, 0));
+		gridDer.setLayout(new GridLayout(10, 10, 5, 5));
+		
+		for (int i=0;i<10;i++) {
+			for (int j=0;j<10;j++) {
+				aux = new JLabel(j+""+i);
+				aux.setOpaque(true);
+				this.cambiarColorCasilla(aux, Color.DARK_GRAY);
+				aux.addMouseListener(Controlador.getControlador());
+				gridDer.add(aux);
+				gDer[j][i] = aux;
+			}
+		}
 		
 		JPanel pnlBajo = new JPanel();
 		contentPane.add(pnlBajo, BorderLayout.SOUTH);
@@ -119,27 +134,34 @@ public class Vista extends JFrame implements Observer {
 		
 		JButton btnSubmarino = new JButton("Submarino");
 		barcos.add(btnSubmarino);
+		btnSubmarino.addActionListener(Controlador.getControlador());
 		
 		JButton btnDestructor = new JButton("Destructor");
 		barcos.add(btnDestructor);
+		btnDestructor.addActionListener(Controlador.getControlador());
 		
 		JButton btnFragata = new JButton("Fragata");
 		barcos.add(btnFragata);
+		btnFragata.addActionListener(Controlador.getControlador());
 		
 		JPanel direcciones = new JPanel();
 		menuPonerBarcos.add(direcciones);
 		
 		JButton btnArriba = new JButton("Arriba");
 		direcciones.add(btnArriba);
+		btnArriba.addActionListener(Controlador.getControlador());
 		
 		JButton btnAbajo = new JButton("Abajo");
 		direcciones.add(btnAbajo);
+		btnAbajo.addActionListener(Controlador.getControlador());
 		
 		JButton btnDerecha = new JButton("Derecha");
 		direcciones.add(btnDerecha);
+		btnDerecha.addActionListener(Controlador.getControlador());
 		
 		JButton btnIzquierda = new JButton("Izquierda");
 		direcciones.add(btnIzquierda);
+		btnIzquierda.addActionListener(Controlador.getControlador());
 		
 		
 		
@@ -150,13 +172,9 @@ public class Vista extends JFrame implements Observer {
 		
 		lblBarcosusr = new JLabel("BarcosUsr:");
 		panel.add(lblBarcosusr);
-//		lblBarcosusr.setText(lblBarcosusr.getText()+" P");
-		lblBarcosusr.addMouseListener(Controlador.getControlador());
-		
-		
+				
 		lblBarcosia = new JLabel("BarcosIA:");
 		panel.add(lblBarcosia);
-		lblBarcosia.addMouseListener(Controlador.getControlador());
 		
 		
 	}
@@ -174,8 +192,8 @@ public class Vista extends JFrame implements Observer {
 		if (o instanceof Tile) {
 			JLabel aux = this.buscarPanel(((Tile) o).getCoordX(),((Tile) o).getCoordY());
 			if((Integer)arg==0) {
-				if(o instanceof Agua)	aux.setBackground(Color.blue);
-				else if(o instanceof TBarco)	aux.setBackground(Color.DARK_GRAY);
+				if(o instanceof Agua)	this.cambiarColorCasilla(aux, Color.blue);
+				else if(o instanceof TBarco)	this.cambiarColorCasilla(aux, Color.black);
 			}else if ((Integer)arg==1) {
 				aux.setBackground(Color.red);
 			}			
@@ -214,5 +232,17 @@ public class Vista extends JFrame implements Observer {
 		else matriz = this.gDer;
 		return matriz[x][y];
 	}
-
+	
+	private void cambiarColorCasilla(JLabel jl, Color cl) {
+		jl.setBackground(cl);
+		jl.setForeground(cl);
+	}
+	
+	public boolean getTurnoUsr() {
+		return this.turnoUsr;
+	}
+	
+	public void TESTOCUPADO(int x, int y) {
+		gIzq[x][y].setBackground(Color.green);;
+	}
 }

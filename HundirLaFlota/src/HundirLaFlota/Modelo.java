@@ -15,8 +15,17 @@ public class Modelo extends Observable {
 	private int estado;				//Estado 0: colocoar barcos, estado 1: bombardear
 
 	private Modelo() {
-		// TODO - implement Modelo.Modelo
+		this.turnoUsuario = true;
+		this.estado = 0;
+
 		this.addObserver(Vista.getVista());
+		setChanged();
+		notifyObservers(this.turnoUsuario);
+		
+		this.usuario=new Jugador();
+		this.ia = new IA();
+		
+		this.resetBAP();
 	}
 
 	public static Modelo getModelo() {
@@ -61,17 +70,25 @@ public class Modelo extends Observable {
 		}else if (estado == 1) {
 			this.actuarSobreTile(x, y);
 		}
-		System.out.println(x+" "+y);
 	}
 
-	public void recibirDir(int pCodDIr) {
+	public void recibirDir(int pCodDir) {
+		Jugador u;
+		if (turnoUsuario) {
+			u = this.usuario;
+		}else {
+			u = this.ia;
+		}
 		//En comparacion con el resto de los Recibires este no se alamacena, sino que pasa directamente al jugador
 		// 0 = Norte
 		// 1 = Este
 		// 2 = Sur
 		// 3 = Oeste
-		if (estado == 0){
-			this.usuario.ponerBarco(this.bapCoordX,this.bapCoordY,this.bapTamaño, pCodDIr);
+		if(this.bapCoordX !=-1 && this.bapCoordY!=-1 && this.bapTamaño!=0) {
+			if (estado == 0){
+				u.ponerBarco(this.bapCoordX,this.bapCoordY,this.bapTamaño, pCodDir);
+			}
+			this.resetBAP();
 		}
 	}
 
@@ -83,12 +100,22 @@ public class Modelo extends Observable {
 	}
 
 	public void cambioTurno() {
+//		Simplemente cambia el booleano de turno falta hacer que el usuario no pueda hacer nada desde vista
 		this.turnoUsuario = !this.turnoUsuario;
+		setChanged();
 		notifyObservers(this.turnoUsuario);
 	}
 	
 	public void cambioEstado() {
 		this.estado++;
+		setChanged();
 		notifyObservers(estado);
+	}
+	
+	private void resetBAP() {
+		//Valores almacenados cuando no se ha seleccionado nada
+		this.bapCoordX=-1;
+		this.bapCoordY=-1;
+		this.bapTamaño=0;
 	}
 }

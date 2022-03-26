@@ -9,8 +9,8 @@ public class Panel {
 	private Tile[][] lTiles;
 
 	public Panel() {
-		// TODO - implement Panel.Panel
-		throw new UnsupportedOperationException();
+		this.lTiles=new Tile[10][10];
+		this.llenarAgua();
 	}
 
 	/**
@@ -18,7 +18,7 @@ public class Panel {
 	 * @param x
 	 * @param y
 	 */
-	private Tile buscarTileIndice(int x, int y) {
+	/*private*/ public Tile buscarTileIndice(int x, int y) {
 		// TODO - implement Panel.buscarTileIndice
 		return Arrays.stream(lTiles) // Stream<Tile[]>
 					.flatMap(Arrays::stream)
@@ -39,28 +39,28 @@ public class Panel {
 			if (y - pTam >= 0){
 				z = Arrays.stream(lTiles) // Stream<Tile[]>
 						.flatMap(Arrays::stream)
-						.filter(t -> t.coordY <= y - pTam + 1).allMatch(t -> t instanceof Agua && ((Agua) t).getOcupado() == true);
+						.filter(t -> t.coordY <= y - pTam + 1).allMatch(t -> t instanceof Agua && ((Agua) t).getOcupado() == false);
 			}
 		}
 		else if (pCodDIr == 1){
-			if (x + pTam <= 10){
+			if (x + pTam <= 9){
 				z = Arrays.stream(lTiles) // Stream<Tile[]>
 						.flatMap(Arrays::stream)
-						.filter(t -> t.coordY <= x + pTam - 1).allMatch(t -> t instanceof Agua && ((Agua) t).getOcupado() == true);
+						.filter(t -> t.coordY <= x + pTam - 1).allMatch(t -> t instanceof Agua && ((Agua) t).getOcupado() == false);
 			}
 		}
 		else if(pCodDIr == 2){
-			if (y + pTam <= 10){
+			if (y + pTam <= 9){
 				z = Arrays.stream(lTiles) // Stream<Tile[]>
 						.flatMap(Arrays::stream)
-						.filter(t -> t.coordY <= y + pTam - 1).allMatch(t -> t instanceof Agua && ((Agua) t).getOcupado() == true);
+						.filter(t -> t.coordY <= y + pTam - 1).allMatch(t -> t instanceof Agua && ((Agua) t).getOcupado() == false);
 			}
 		}
 		else if(pCodDIr == 3){
 			if (x - pTam >= 0){
 				z = Arrays.stream(lTiles) // Stream<Tile[]>
 						.flatMap(Arrays::stream)
-						.filter(t -> t.coordY <= x - pTam + 1).allMatch(t -> t instanceof Agua && ((Agua) t).getOcupado() == true);
+						.filter(t -> t.coordY <= x - pTam + 1).allMatch(t -> t instanceof Agua && ((Agua) t).getOcupado() == false);
 			}
 		}
 		return z;
@@ -72,8 +72,11 @@ public class Panel {
 	 */
 	public void ponerTileEnPos(int x, int y, TBarco tB) {
 		// TODO - implement Panel.ponerTileEnPos
-		Tile t = buscarTileIndice(x,y);
-		t = tB;
+//		Tile t = buscarTileIndice(x,y);
+//		t = tB;
+//		t.revelar();
+		this.lTiles[x][y]=tB;
+		tB.revelar();
 	}
 	/**
 	 * 
@@ -82,10 +85,69 @@ public class Panel {
 	 * @param a
 	 */
 	public void accionarTile(int x, int y, Accion a) {
-		// TODO - implement Panel.accionarTile
-		throw new UnsupportedOperationException();
+		this.lTiles[x][y].ejecutar(a);
 	}
 	public void llenarAgua(){
-		Arrays.stream(lTiles).flatMap(Arrays::stream).forEach(v -> v = new Agua());
+//		Arrays.stream(lTiles).flatMap(Arrays::stream).forEach(v -> v = new Agua(v.getCoordX(),v.getCoordY(),true));
+//		Tal cual estaba no funcionaba asi que lo haré con iterador y lo podemos revisar para java8 luego
+		for(int i=0;i<10;i++) {
+			for(int j=0;j<10;j++) {
+				this.lTiles[i][j]=new Agua(i,j,true);
+				this.lTiles[i][j].revelar();
+			}
+		}
+	}
+	
+	public void rodearBarco(int x, int y, int pTam, int pCodDir) {//Ocupa agua entorno a barco
+		int indx;
+		int indy;
+		int xinic;
+		int xfin;
+		int yinic;
+		int yfin;
+		pTam--;
+		if(pCodDir==3) {
+			xinic=x-pTam; 
+			xfin=x;
+			yinic=y;
+			yfin=y;
+		}
+		else if (pCodDir==1) {
+			xinic=x;
+			xfin=x+pTam;
+			yinic=y;
+			yfin=y;
+		}
+		else if (pCodDir==0){
+			xinic=x;
+			xfin=x;
+			yinic=y-pTam;
+			yfin=y;
+		}
+		else {
+			xinic=x;
+			xfin=x;
+			yinic=y;
+			yfin=y+pTam;
+		}
+		
+		System.out.println("%%"+xinic+ " "+ yinic);
+		indx=xinic-1;
+		while(indx<=xfin+1) {
+			if(indx>=0&&indx<10) {
+				indy=yinic-1;
+				while(indy<=yfin+1) {
+					if(indy>=0 && indy<10) {
+						if(this.lTiles[indx][indy] instanceof Agua) {
+							((Agua)this.lTiles[indx][indy]).setOcupado(true);
+							System.out.println(""+indx+ " "+ indy);
+						}
+					}
+					indy++;
+				}
+			}
+			indx++;
+		}
+		System.out.println("%%"+xfin+ " "+ yfin);
 	}
 }

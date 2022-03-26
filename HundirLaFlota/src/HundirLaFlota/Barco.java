@@ -1,5 +1,6 @@
 package HundirLaFlota;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class Barco {
@@ -13,23 +14,27 @@ public class Barco {
 	 * @param pTam
 	 */
 	public Barco(int pTam) {
-		// TODO - implement Barco.Barco
-		throw new UnsupportedOperationException();
+		this.hundido = false;
+		this.protegido = false;
+		this.lTBarcos = new ArrayList<TBarco>();
 	}
 
-	public void estaProtegido() {
-		// TODO - implement Barco.estaProtegido
-		throw new UnsupportedOperationException();
+	public boolean estaProtegido() {
+		return this.protegido;
 	}
 
 	public void anadirTBarco(TBarco tB) {
-		// TODO - implement Barco.anadirTBarco
-		throw new UnsupportedOperationException();
+		this.lTBarcos.add(tB);
+		tB.anadirABarco(this);
 	}
 
-	public void estaHundido() {
-		// TODO - implement Barco.estaHundido
-		throw new UnsupportedOperationException();
+	public boolean estaHundido() {
+		return this.hundido;
+	}
+
+	public void setProtegido(boolean b) {
+		// TODO Auto-generated method stub
+		this.protegido = b;
 	}
 
 }

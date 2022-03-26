@@ -21,6 +21,7 @@ public class Tile extends Observable{
 	public void revelar() {
 		// TODO - implement Tile.revelar
 		this.oculto = false;
+		setChanged();
 		notifyObservers(0);
 	}
 

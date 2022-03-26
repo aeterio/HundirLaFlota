@@ -40,13 +40,13 @@ public class Controlador implements ActionListener, MouseListener {
 		}else if(((JButton) e.getSource()).getText().equals("Fragata")) {
 			Modelo.getModelo().recibirTamaño(1);
 		}else if(((JButton) e.getSource()).getText().equals("Arriba")) {
-			Modelo.getModelo().recibirTamaño(0);
+			Modelo.getModelo().recibirDir(0);
 		}else if(((JButton) e.getSource()).getText().equals("Abajo")) {
-			Modelo.getModelo().recibirTamaño(2);
+			Modelo.getModelo().recibirDir(2);
 		}else if(((JButton) e.getSource()).getText().equals("Derecha")) {
-			Modelo.getModelo().recibirTamaño(1);
+			Modelo.getModelo().recibirDir(1);
 		}else if(((JButton) e.getSource()).getText().equals("Izquierda")) {
-			Modelo.getModelo().recibirTamaño(3);
+			Modelo.getModelo().recibirDir(3);
 		}
 	}
 

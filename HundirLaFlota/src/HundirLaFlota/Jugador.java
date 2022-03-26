@@ -1,5 +1,6 @@
 package HundirLaFlota;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Observable;
 
@@ -12,8 +13,15 @@ public class Jugador extends Observable{
 	private Panel panel;
 
 	public Jugador() {
-		// TODO - implement Jugador.Jugador
-		throw new UnsupportedOperationException();
+		this.dinero = 50;
+		this.cantBomb = 40;
+		this.cantMisil = 5;
+		this.panel=new Panel();
+		this.lBarcos = new ArrayList[5];
+		for (int i = 1; i<5;i++) {
+			this.lBarcos[i]= new ArrayList<Barco>();			
+		}
+		this.addObserver(Vista.getVista());
 	}
 
 	/**
@@ -51,15 +59,14 @@ public class Jugador extends Observable{
 	 */
 	public void ponerBarco(int x, int y, int pTam, int pCodDir) {
 		// TODO - implement Jugador.ponerBarco
-		if (panel.sePuedePoner(x,y,pTam,pCodDir)) {
+		if (this.lBarcos[pTam].size()<5-pTam && panel.sePuedePoner(x,y,pTam,pCodDir)) {
 			int i = 0;
-			int z;
 			Barco b = new Barco(pTam);
 			this.anadirBarco(b, pTam);
 			notifyObservers(pTam);
 			if(pCodDir == 0){
 				while (i < pTam){
-					TBarco tb =  new TBarco();
+					TBarco tb =  new TBarco(x,y-i,false);
 					b.anadirTBarco(tb);
 					panel.ponerTileEnPos(x,y-i,tb);
 					i++;
@@ -67,7 +74,7 @@ public class Jugador extends Observable{
 			}
 			else if(pCodDir == 1){
 				while (i < pTam){
-					TBarco tb =  new TBarco();
+					TBarco tb =  new TBarco(x+i,y,false);
 					b.anadirTBarco(tb);
 					panel.ponerTileEnPos(x+i,y,tb);
 					i++;
@@ -75,7 +82,7 @@ public class Jugador extends Observable{
 			}
 			else if(pCodDir == 2){
 				while (i < pTam){
-					TBarco tb =  new TBarco();
+					TBarco tb =  new TBarco(x,y+i,false);
 					b.anadirTBarco(tb);
 					panel.ponerTileEnPos(x,y+i,tb);
 					i++;
@@ -83,15 +90,19 @@ public class Jugador extends Observable{
 			}
 			else{
 				while (i < pTam){
-					TBarco tb =  new TBarco();
+					TBarco tb =  new TBarco(x-i,y,false);
 					b.anadirTBarco(tb);
 					panel.ponerTileEnPos(x-i,y,tb);
 					i++;
 				}
 			}
+			this.comprobarFinAnadirBarcos();
+			this.rodearBarco(x, y, pTam, pCodDir);
 		}
+		
 		else{
 			//hacer una excepcion oh algo para comunicar al jugador, oh hacer el checkeo de manera previa
+			System.out.println(((Agua)this.panel.buscarTileIndice(x, y)).getOcupado());
 		}
 	}
 
@@ -102,6 +113,22 @@ public class Jugador extends Observable{
 	public void anadirBarco(Barco pB,int pTam) {
 		// TODO - implement Jugador.anadirBarco
 		lBarcos[pTam].add(pB);
+		setChanged();
+		notifyObservers(pTam);
 	}
+	
+	public void comprobarFinAnadirBarcos() { //Comprueba si se ha añadido el máximo de cada tipo de barco y si es así cambia el turno
+		boolean lleno = true;
+		for(int i = 1; i < this.lBarcos.length; i++) {
+			lleno = lleno && (this.lBarcos[i].size() == 5-i);
+		}
+		if(lleno)Modelo.getModelo().cambioTurno();
+	}
+	
+	private void rodearBarco(int x, int y, int pTam, int pCodDir) {//Rodear barco de agua ocupada
+		this.panel.rodearBarco(x, y, pTam, pCodDir);
+	}
+	
+	
 
 }

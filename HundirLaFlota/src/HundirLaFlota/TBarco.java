@@ -5,9 +5,10 @@ public class TBarco extends Tile {
 	private Barco barco;
 	private boolean tocado;
 
-	public TBarco() {
+	public TBarco(int pCoordX, int pCoordY, boolean pOc) {
 		// TODO - implement TBarco.TBarco
-		throw new UnsupportedOperationException();
+		super(pCoordX,pCoordY,pOc);
+		this.tocado = false;
 	}
 
 	public boolean getTocado() {
@@ -20,8 +21,13 @@ public class TBarco extends Tile {
 			this.barco.setProtegido(false);
 		}else {
 			this.tocado = true;
+			setChanged();
 			notifyObservers(1);
 		}
+	}
+	
+	public void anadirABarco(Barco ba) {
+		this.barco=ba;
 	}
 
 }

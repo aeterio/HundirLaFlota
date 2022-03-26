@@ -4,7 +4,6 @@ public class IA extends Jugador {
 
 	public IA() {
 		// TODO - implement IA.IA
-		throw new UnsupportedOperationException();
 	}
 
 	public void ponerBarcosInteligente() {
