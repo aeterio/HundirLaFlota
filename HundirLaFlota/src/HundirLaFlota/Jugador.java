@@ -60,7 +60,7 @@ public class Jugador extends Observable{
 	 */
 	public void ponerBarco(int x, int y, int pTam, int pCodDir) {
 		// TODO - implement Jugador.ponerBarco
-		if (this.lBarcos[pTam].size()<5-pTam /*&& panel.sePuedePoner(x,y,pTam,pCodDir)*/) { //!!! cOMENTADO PORQUE NO PERMITE PONER BARCOS CUANDO DEBERIA
+		if (this.lBarcos[pTam].size()<5-pTam && panel.sePuedePoner(x,y,pTam,pCodDir)) { //!!! cOMENTADO PORQUE NO PERMITE PONER BARCOS CUANDO DEBERIA
 			int i = 0;
 			Barco b = new Barco(pTam);
 			this.anadirBarco(b, pTam);
@@ -98,7 +98,7 @@ public class Jugador extends Observable{
 				}
 			}
 			this.comprobarFinAnadirBarcos();
-//			this.rodearBarco(x, y, pTam, pCodDir);  //!!!!COMENTADO PORQUE EL CHQUEO DE AGUA OCUPADA DESCOMENTAR PARA OCUPAR AGUA
+			this.rodearBarco(x, y, pTam, pCodDir);  //!!!!COMENTADO PORQUE EL CHQUEO DE AGUA OCUPADA DESCOMENTAR PARA OCUPAR AGUA
 		}
 		
 		else{
