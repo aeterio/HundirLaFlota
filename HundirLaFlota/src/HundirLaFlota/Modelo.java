@@ -58,8 +58,8 @@ public class Modelo extends Observable {
 		}
 		j1.consumirRecuro(this.accionCargada);
 		j2.actuarSobre(this.accionCargada, x, y);
-		this.cambioTurno();
-		if(j2.todosHundidos())this.pierde(j2);;
+		if(estado==1)this.cambioTurno();
+		if(j2.todosHundidos()&&estado==1)this.pierde(j2);;
 	}
 
 	public void recibirPos(int x, int y, char tablero) {
@@ -70,6 +70,9 @@ public class Modelo extends Observable {
 			if (estado ==0) {
 				this.bapCoordX=x;
 				this.bapCoordY=y;
+				this.accionCargada = new Seleccion();
+				this.actuarSobreTile(x, y);
+				this.accionCargada = null;
 			}else if (estado == 1) {
 				if(this.accionCargada!=null)this.actuarSobreTile(x, y);
 			}
@@ -78,6 +81,7 @@ public class Modelo extends Observable {
 
 	public void recibirDir(int pCodDir) {
 		Jugador u;
+		Boolean res;
 		if (turnoUsuario) {
 			u = this.usuario;
 		}else {
@@ -92,6 +96,8 @@ public class Modelo extends Observable {
 			if (estado == 0){
 				u.ponerBarco(this.bapCoordX,this.bapCoordY,this.bapTamaño, pCodDir);
 			}
+			setChanged();
+			notifyObservers("");
 			this.resetBAP();
 		}
 	}
@@ -100,6 +106,14 @@ public class Modelo extends Observable {
 		//Almacenamos el Tamaño, el tipo, de barco para posterior uso en la colocacion
 		if(estado == 0){
 			this.bapTamaño = pTam;
+			
+			String cod;
+			if(this.bapTamaño==1)cod="Fragata";
+			else if(this.bapTamaño==2)cod="Destructor";
+			else if(this.bapTamaño==3)cod="Submarino";
+			else /*if(this.bapTamaño==2)*/cod="Portviones";
+			setChanged();
+			notifyObservers(cod);
 		}
 	}
 

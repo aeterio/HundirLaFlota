@@ -26,6 +26,7 @@ public class Vista extends JFrame implements Observer {
 	private JLabel[][] gDer;	//De la IA
 	private JLabel[][] gIzq;	//Del usuario
 
+	
 	/**
 	 * Launch the application.
 	 */
@@ -49,17 +50,34 @@ public class Vista extends JFrame implements Observer {
 	private boolean turnoUsr;
 	private int estado;
 	
+	private JLabel antSeleccion;
+	
 	private JPanel menuAcciones;
 	private JPanel menuPonerBarcos;
 	
 	private JLabel lblBarcosusr;
 	private JLabel lblBarcosia;
 	
+	private JLabel lblBarcoSeleccionado;
+	
+	//######################Colores
+	private Color cBarco;
+	private Color cAgua;
+	private Color cSeleccion;
+	private Color cOculto;
+	private Color cTocado;
+	
 	public Vista() {
 		this.estado = 0;
 		
 		this.gDer = new JLabel[10][10];
 		this.gIzq = new JLabel[10][10];
+		
+		this.cBarco = Color.black;
+		this.cAgua = Color.blue;
+		this.cSeleccion = Color.gray;
+		this.cOculto = Color.darkGray;
+		this.cTocado = Color.red;
 		
 		/// Creacion general
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -173,13 +191,16 @@ public class Vista extends JFrame implements Observer {
 		////###############################################################
 		JPanel panel = new JPanel();
 		pnlBajo.add(panel);
-		panel.setLayout(new GridLayout(2, 1, 0, 0));
+		panel.setLayout(new GridLayout(3, 1, 0, 0));
 		
 		lblBarcosusr = new JLabel("BarcosUsr:");
 		panel.add(lblBarcosusr);
 				
 		lblBarcosia = new JLabel("BarcosIA:");
 		panel.add(lblBarcosia);
+		
+		lblBarcoSeleccionado = new JLabel("Barco Seleccionado: ");
+		panel.add(lblBarcoSeleccionado);
 		
 		
 	}
@@ -197,11 +218,19 @@ public class Vista extends JFrame implements Observer {
 		if (o instanceof Tile) {
 			JLabel aux = this.buscarPanel(((Tile) o).getCoordX(),((Tile) o).getCoordY());
 			if((Integer)arg==0) {
-				if(o instanceof Agua)	this.cambiarColorCasilla(aux, Color.blue);
-				else if(o instanceof TBarco)	this.cambiarColorCasilla(aux, Color.black);
+				if(o instanceof Agua)	this.cambiarColorCasilla(aux, this.cAgua);
+				else if(o instanceof TBarco)	this.cambiarColorCasilla(aux, this.cBarco);
 			}else if ((Integer)arg==1) {
-				this.cambiarColorCasilla(aux, Color.red);
-			}			
+				this.cambiarColorCasilla(aux, this.cTocado);
+			}else if ((Integer)arg==-1) {
+				if(this.antSeleccion!=null && this.antSeleccion.getBackground().equals(this.cSeleccion)) {
+					this.cambiarColorCasilla(this.antSeleccion, this.cAgua); 
+				}
+				if(!aux.getBackground().equals(this.cBarco)) {
+					this.cambiarColorCasilla(aux,this.cSeleccion);
+					this.antSeleccion = aux; 
+				}
+			}
 		}else if (o instanceof Jugador) {
 			String aux;
 			if(((Integer)arg)==1) {
@@ -224,9 +253,13 @@ public class Vista extends JFrame implements Observer {
 			//Cambio de estado
 			if(arg instanceof Integer) {
 				this.menuPonerBarcos.setVisible(false);
+				this.lblBarcoSeleccionado.setVisible(false);
 				this.menuAcciones.setVisible(true);
 				this.estado=(int) arg;
-			}else {
+			}else if(arg instanceof String) {
+				String selec = "Barco Seleccionado: "  + arg;
+				lblBarcoSeleccionado.setText(selec);
+			}else /*if(arg instanceof Boolean)*/{
 				this.turnoUsr = (boolean) arg;
 			}
 		}

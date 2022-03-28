@@ -24,6 +24,11 @@ public class Tile extends Observable{
 		setChanged();
 		notifyObservers(0);
 	}
+	
+	public void seleccionar() {
+		setChanged();
+		notifyObservers(-1);
+	}
 
 	public void actVista() {
 		// TODO - implement Tile.actVista

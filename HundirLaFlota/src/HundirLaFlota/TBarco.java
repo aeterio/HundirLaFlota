@@ -30,5 +30,16 @@ public class TBarco extends Tile {
 	public void anadirABarco(Barco ba) {
 		this.barco=ba;
 	}
+	
+	public void tocarEntero() {
+		if (this.barco.estaProtegido()) {
+			this.barco.setProtegido(false);
+		}else {
+			this.tocado = true;
+			this.barco.hundir();
+			setChanged();
+			notifyObservers(1);
+		}
+	}
 
 }

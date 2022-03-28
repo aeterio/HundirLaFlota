@@ -44,11 +44,18 @@ public class Barco {
 		Iterator<TBarco> itr = this.lTBarcos.iterator();
 		while(itr.hasNext()) {
 			aux = itr.next();
-//			System.out.println(aux.getTocado());
 			b = b && aux.getTocado();
 		}
 		this.hundido = b;
-//		System.out.println("*******************"+this.hundido);
+	}
+	
+	public void hundir() {
+		TBarco aux;
+		Iterator<TBarco> itr = this.lTBarcos.iterator();
+		while(itr.hasNext()) {
+			aux = itr.next();
+			aux.tocar();
+		}
 	}
 
 }

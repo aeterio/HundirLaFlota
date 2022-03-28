@@ -134,8 +134,6 @@ public class Panel {
 			yinic=y;
 			yfin=y+pTam;
 		}
-		
-		System.out.println("%%"+xinic+ " "+ yinic);
 		indx=xinic-1;
 		while(indx<=xfin+1) {
 			if(indx>=0&&indx<10) {
@@ -144,7 +142,6 @@ public class Panel {
 					if(indy>=0 && indy<10) {
 						if(this.lTiles[indx][indy] instanceof Agua) {
 							((Agua)this.lTiles[indx][indy]).setOcupado(true);
-							System.out.println(""+indx+ " "+ indy);
 						}
 					}
 					indy++;

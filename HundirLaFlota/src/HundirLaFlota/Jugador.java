@@ -58,9 +58,11 @@ public class Jugador extends Observable{
 	 * @param pTam
 	 * @param pCodDir
 	 */
-	public void ponerBarco(int x, int y, int pTam, int pCodDir) {
+	public boolean ponerBarco(int x, int y, int pTam, int pCodDir) {
 		// TODO - implement Jugador.ponerBarco
-		if (this.lBarcos[pTam].size()<5-pTam && panel.sePuedePoner(x,y,pTam,pCodDir)) { //!!! cOMENTADO PORQUE NO PERMITE PONER BARCOS CUANDO DEBERIA
+		boolean res;
+		if (this.lBarcos[pTam].size()<5-pTam /*&& panel.sePuedePoner(x,y,pTam,pCodDir)*/) { //!!! cOMENTADO PORQUE NO PERMITE PONER BARCOS CUANDO DEBERIA
+			res = true;
 			int i = 0;
 			Barco b = new Barco(pTam);
 			this.anadirBarco(b, pTam);
@@ -102,9 +104,11 @@ public class Jugador extends Observable{
 		}
 		
 		else{
+			res = false;
 			//hacer una excepcion oh algo para comunicar al jugador, oh hacer el checkeo de manera previa
 			System.out.println(((Agua)this.panel.buscarTileIndice(x, y)).getOcupado());
 		}
+		return res;
 	}
 
 	/**
@@ -146,7 +150,7 @@ public class Jugador extends Observable{
 	
 	protected void ponerTBPanel(int x, int y, TBarco tb) {
 		this.panel.ponerTileEnPos(x, y, tb);
-		this.panel.revelarTileEnPos(x, y);
+		tb.revelar();
 	}
 
 }

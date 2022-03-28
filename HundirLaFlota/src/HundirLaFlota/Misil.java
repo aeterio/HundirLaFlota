@@ -10,8 +10,7 @@ public class Misil extends Arma {
 	public void ejecutarse(Tile pT) {
 		pT.revelar();
 		if(pT instanceof TBarco) {
-			((TBarco) pT).tocar();
-			((TBarco) pT).tocar();
+			((TBarco) pT).tocarEntero();
 		}
 		
 	}
