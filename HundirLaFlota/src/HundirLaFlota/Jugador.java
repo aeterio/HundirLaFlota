@@ -20,13 +20,13 @@ public class Jugador extends Observable{
 		this.panel=new Panel();
 		this.lBarcos = new ArrayList[5];
 		for (int i = 1; i<5;i++) {
-			this.lBarcos[i]= new ArrayList<Barco>();			
+			this.lBarcos[i]= new ArrayList<Barco>();
 		}
 		this.addObserver(Vista.getVista());
 	}
 
 	/**
-	 * 
+	 *
 	 * @param a
 	 */
 	public void consumirRecuro(Accion a) {
@@ -40,7 +40,7 @@ public class Jugador extends Observable{
 	}
 
 	/**
-	 * 
+	 *
 	 * @param a
 	 * @param x
 	 * @param y
@@ -52,17 +52,15 @@ public class Jugador extends Observable{
 	}
 
 	/**
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @param pTam
 	 * @param pCodDir
 	 */
-	public boolean ponerBarco(int x, int y, int pTam, int pCodDir) {
+	public void ponerBarco(int x, int y, int pTam, int pCodDir) {
 		// TODO - implement Jugador.ponerBarco
-		boolean res;
-		if (this.lBarcos[pTam].size()<5-pTam /*&& panel.sePuedePoner(x,y,pTam,pCodDir)*/) { //!!! cOMENTADO PORQUE NO PERMITE PONER BARCOS CUANDO DEBERIA
-			res = true;
+		if (this.lBarcos[pTam].size()<5-pTam && panel.sePuedePoner(x,y,pTam,pCodDir)) { //!!! cOMENTADO PORQUE NO PERMITE PONER BARCOS CUANDO DEBERIA
 			int i = 0;
 			Barco b = new Barco(pTam);
 			this.anadirBarco(b, pTam);
@@ -102,17 +100,15 @@ public class Jugador extends Observable{
 			this.comprobarFinAnadirBarcos();
 			this.rodearBarco(x, y, pTam, pCodDir);  //!!!!COMENTADO PORQUE EL CHQUEO DE AGUA OCUPADA DESCOMENTAR PARA OCUPAR AGUA
 		}
-		
+
 		else{
-			res = false;
 			//hacer una excepcion oh algo para comunicar al jugador, oh hacer el checkeo de manera previa
 			System.out.println(((Agua)this.panel.buscarTileIndice(x, y)).getOcupado());
 		}
-		return res;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param pB
 	 */
 	public void anadirBarco(Barco pB,int pTam) {
@@ -121,7 +117,7 @@ public class Jugador extends Observable{
 		setChanged();
 		notifyObservers(pTam);
 	}
-	
+
 	public void comprobarFinAnadirBarcos() { //Comprueba si se ha añadido el máximo de cada tipo de barco y si es así cambia el turno
 		boolean lleno = true;
 		for(int i = 1; i < this.lBarcos.length; i++) {
@@ -129,11 +125,11 @@ public class Jugador extends Observable{
 		}
 		if(lleno)Modelo.getModelo().cambioTurno();
 	}
-	
+
 	private void rodearBarco(int x, int y, int pTam, int pCodDir) {//Rodear barco de agua ocupada
 		this.panel.rodearBarco(x, y, pTam, pCodDir);
 	}
-	
+
 	public boolean todosHundidos() {
 		boolean b = true;
 		Barco aux;
@@ -147,10 +143,10 @@ public class Jugador extends Observable{
 		}
 		return b;
 	}
-	
+
 	protected void ponerTBPanel(int x, int y, TBarco tb) {
 		this.panel.ponerTileEnPos(x, y, tb);
-		tb.revelar();
+		this.panel.revelarTileEnPos(x, y);
 	}
 
 }
